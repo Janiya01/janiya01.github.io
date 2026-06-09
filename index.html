@@ -38,16 +38,16 @@
         .social-sidebar a:hover { color: var(--accent); transform: translateY(-5px); }
         .social-sidebar::after { content: ""; width: 1px; height: 80px; background: rgba(255,255,255,0.1); margin: 0 auto; }
 
-        /* --- Hero (Optimized for all screen sizes) --- */
+        /* --- Hero --- */
         .hero { 
             min-height: 100vh;
-            min-height: 100dvh; /* Dynamic viewport height for modern mobile browsers */
+            min-height: 100dvh; 
             display: flex; 
             flex-direction: column; 
             justify-content: center; 
             align-items: center; 
             text-align: center; 
-            padding: 100px 10% 80px 10%; /* Creates safe space at top and bottom */
+            padding: 100px 10% 80px 10%; 
             position: relative;
             box-sizing: border-box;
         }
@@ -57,7 +57,7 @@
             flex-direction: column;
             align-items: center; 
             width: 100%;
-            margin-top: 0; /* Removed negative margin causing overlap */
+            margin-top: 0; 
         }
         .loc-badge { background: rgba(0, 242, 255, 0.05); color: var(--accent); border: 1px solid rgba(0, 242, 255, 0.2); padding: 6px 14px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 25px; display: inline-block; }
         .hero h1 { font-family: 'Space Grotesk'; font-size: clamp(2.2rem, 7vw, 5rem); line-height: 1.1; margin-bottom: 1.5rem; background: linear-gradient(to bottom, #fff, #666); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -121,12 +121,11 @@
         @media (max-width: 768px) {
             header { padding: 1rem 5%; }
             section { padding: 4rem 5% 3rem 5%; }
-            .hero { padding-top: 80px; padding-bottom: 60px; } /* Ensures safe areas */
+            .hero { padding-top: 80px; padding-bottom: 60px; } 
             .social-sidebar { display: none; }
             .mobile-socials { display: flex; }
             .footer-socials { display: flex; } 
             
-            /* Tweak sizes to fit beautifully on phones */
             .hero h1 { font-size: clamp(2rem, 7vw, 2.8rem); margin-bottom: 1rem; }
             .hero p { font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.5; }
             .loc-badge { font-size: 0.65rem; margin-bottom: 15px; padding: 5px 12px; }
@@ -195,9 +194,14 @@
                 </div>
             </div>
             <div class="role-wrapper">
+                <!-- NEW PROMOTED ROLE ADDED HERE -->
+                <div class="role-entry">
+                    <div style="font-weight: 700; color: var(--accent);">Senior Data & ERP System Analyst</div>
+                    <div style="color: var(--text-dim); font-size: 0.85rem;">Jun 2026 – Present · <span id="current-role-time"></span></div>
+                </div>
                 <div class="role-entry">
                     <div style="font-weight: 700;">Data & ERP System Analyst</div>
-                    <div style="color: var(--text-dim); font-size: 0.85rem;">Feb 2025 – Present · <span id="current-role-time"></span></div>
+                    <div style="color: var(--text-dim); font-size: 0.85rem;">Feb 2025 – May 2026 · 1 yr 4 mos</div>
                 </div>
                 <div class="role-entry">
                     <div style="font-weight: 700;">Junior Data & ERP System Analyst</div>
@@ -302,11 +306,18 @@
             document.getElementById('mystery-label').innerText = "Progress: " + percent.toFixed(2) + "%";
         }
         function updateWork() {
-            const currentStart = new Date("2025-02-01");
+            // Updated to calculate time for your new Senior role starting June 2026
+            const currentStart = new Date("2026-06-01");
             const now = new Date();
             let m = (now.getFullYear() - currentStart.getFullYear()) * 12 + (now.getMonth() - currentStart.getMonth());
-            document.getElementById('current-role-time').innerText = `${Math.floor(m/12) > 0 ? Math.floor(m/12) + ' yr ' : ''}${m%12} mos`;
-            let totalM = m + 13;
+            if(m < 0) m = 0; // Ensures it handles edge cases correctly
+            
+            let yrText = Math.floor(m/12) > 0 ? Math.floor(m/12) + ' yr ' : '';
+            let moText = m%12 + ' mos';
+            document.getElementById('current-role-time').innerText = m === 0 ? 'Just started' : `${yrText}${moText}`;
+            
+            // Total time adds the previous 29 months at the company (16 mos Analyst + 7 mos Junior + 6 mos Intern)
+            let totalM = m + 29;
             document.getElementById('total-link-time').innerText = `${Math.floor(totalM/12)} yrs ${totalM%12} mos`;
         }
         updateMystery();
